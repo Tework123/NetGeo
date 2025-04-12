@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: NetGeo
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/netGeoDb
+    username: tework
+    password: ksflkOkas23fl9saflKdl349sLfsk1
+    hikari:
+      auto-commit: false
+    jpa:
+      hibernate:
+        ddl-auto: none
+      show-sql: false
+      # properties:
+      #   hibernate:
+      #     generate_statistics: true
+    liquibase:
+      enabled: true
