@@ -1,6 +1,7 @@
 package com.ex.netgeo.controller;
 
 import com.ex.netgeo.service.GeoIpService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,18 @@ public class TestController {
 
 
     @GetMapping("/search")
-    public List<Map<String, Object>> search(@RequestParam String query) {
+    public List<Map<String, Object>> search(@RequestParam String query, HttpServletRequest request) {
+        String ipAddress = extractClientIp(request);
+        System.out.println(ipAddress);
+
         return geoIpService.getCountryCodeByIp(query);
+    }
+
+    private String extractClientIp(HttpServletRequest request) {
+        String forwardedFor = request.getHeader("X-Forwarded-For");
+        if (forwardedFor != null && !forwardedFor.isEmpty()) {
+            return forwardedFor.split(",")[0].trim(); // В случае прокси может быть список IP
+        }
+        return request.getRemoteAddr();
     }
 }

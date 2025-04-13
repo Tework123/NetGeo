@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Геолокация</title>
+    <script>
+        function getGeolocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    // Получаем координаты
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+
+                    // Показываем координаты в блоке
+                    document.getElementById("coordinates").innerHTML =
+                        "Широта: " + latitude + "<br>Долгота: " + longitude;
+                }, function(error) {
+                    // Обрабатываем ошибку, если не удалось получить геолокацию
+                    document.getElementById("coordinates").innerHTML =
+                        "Ошибка: не удалось получить местоположение.";
+                });
+            } else {
+                document.getElementById("coordinates").innerHTML = "Геолокация не поддерживается этим браузером.";
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>Получить мои координаты</h1>
+<button onclick="getGeolocation()">Получить координаты</button>
+<p id="coordinates"></p>
+</body>
+</html>
