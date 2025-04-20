@@ -9,8 +9,6 @@ import java.util.List;
 
 /**
  * Репозиторий для работы с сущностью {@link LocationPoint}.
- * <p>
- * Предоставляет базовые CRUD-операции, а также метод для получения маршрута устройства за указанный период.
  */
 @Repository
 public interface LocationPointRepository extends JpaRepository<LocationPoint, Long> {
@@ -23,9 +21,9 @@ public interface LocationPointRepository extends JpaRepository<LocationPoint, Lo
      * @param to       конец временного интервала (включительно)
      * @return список точек, отсортированных по времени в порядке возрастания
      */
-    List<LocationPoint> findByDeviceIdAndTimeCreateBetweenOrderByTimeCreateAsc(
-            String deviceId,
-            LocalDateTime from,
-            LocalDateTime to
-    );
+//    List<LocationPoint> findByDeviceIdAndTimeCreateBetweenOrderByTimeCreateAsc(
+//            String deviceId,
+//            LocalDateTime from,
+//            LocalDateTime to
+//    );
 }

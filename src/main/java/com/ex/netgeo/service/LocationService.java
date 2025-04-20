@@ -1,12 +1,11 @@
 package com.ex.netgeo.service;
 
-import com.ex.netgeo.dto.LocationRequest;
+import com.ex.netgeo.dto.LocationRequestDto;
 import com.ex.netgeo.entity.LocationPoint;
 import com.ex.netgeo.repository.LocationPointRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.UUID;
 
 /**
  * Сервис для обработки координатных данных от устройств.
@@ -14,13 +13,10 @@ import java.util.UUID;
  * Отвечает за преобразование входных данных и сохранение их в базу данных.
  */
 @Service
+@AllArgsConstructor
 public class LocationService {
 
     private final LocationPointRepository locationPointRepository;
-
-    public LocationService(LocationPointRepository locationPointRepository) {
-        this.locationPointRepository = locationPointRepository;
-    }
 
     /**
      * Сохраняет координаты устройства в базу данных.
@@ -28,9 +24,9 @@ public class LocationService {
      * @param request объект с координатами и временем
      */
     @Transactional
-    public void save(LocationRequest request) {
+    public void save(LocationRequestDto request) {
         LocationPoint point = LocationPoint.builder()
-                .deviceId(UUID.fromString(request.getDeviceId()))
+                .deviceId(request.getDeviceId())
                 .latitude(request.getLatitude())
                 .longitude(request.getLongitude())
                 .timeCreate(request.getTimeCreate())

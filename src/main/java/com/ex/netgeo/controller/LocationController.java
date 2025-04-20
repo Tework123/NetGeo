@@ -1,6 +1,6 @@
 package com.ex.netgeo.controller;
 
-import com.ex.netgeo.dto.LocationRequest;
+import com.ex.netgeo.dto.LocationRequestDto;
 import com.ex.netgeo.service.LocationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ public class LocationController {
      * @return HTTP-ответ 200 OK в случае успешного сохранения
      */
     @PostMapping
-    public ResponseEntity<Void> receiveLocation(@RequestBody LocationRequest request) {
+    public ResponseEntity<Void> receiveLocation(@RequestBody LocationRequestDto request) {
         locationService.save(request);
         return ResponseEntity.ok().build();
     }

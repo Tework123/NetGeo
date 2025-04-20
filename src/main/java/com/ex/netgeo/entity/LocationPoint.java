@@ -17,14 +17,18 @@ public class LocationPoint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long locationPointId;
 
-    private UUID deviceId;
+    @Column(name = "device_id", nullable = false)
+    private Long deviceId;
 
+    @Column(name = "latitude", nullable = false)
     private double latitude;
 
+    @Column(name = "longitude", nullable = false)
     private double longitude;
 
+    @Column(name = "time_create", nullable = false)
     private LocalDateTime timeCreate;
 
 }
