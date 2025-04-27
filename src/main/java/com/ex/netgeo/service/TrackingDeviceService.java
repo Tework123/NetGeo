@@ -1,10 +1,8 @@
 package com.ex.netgeo.service;
 
-import com.ex.netgeo.dto.LocationRequestDto;
 import com.ex.netgeo.dto.TrackingDeviceSaveRequestDto;
-import com.ex.netgeo.entity.LocationPoint;
-import com.ex.netgeo.entity.TrackingDevice;
-import com.ex.netgeo.repository.TrackingDeviceRepository;
+import com.ex.netgeo.entity.Device;
+import com.ex.netgeo.repository.DeviceRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @AllArgsConstructor
 public class TrackingDeviceService {
-    private final TrackingDeviceRepository trackingDeviceRepository;
+    private final DeviceRepository deviceRepository;
 
 
     /**
@@ -22,9 +20,9 @@ public class TrackingDeviceService {
      */
     @Transactional
     public void save(TrackingDeviceSaveRequestDto request) {
-        TrackingDevice trackingDevice = TrackingDevice.builder()
+        Device trackingDevice = Device.builder()
                 .name(request.getName())
                 .build();
-        trackingDeviceRepository.save(trackingDevice);
+        deviceRepository.save(trackingDevice);
     }
 }

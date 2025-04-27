@@ -3,6 +3,7 @@ package com.ex.netgeo.dto;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * DTO для приёма координат от устройства.
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class LocationRequestDto {
-    private Long deviceId;
+    private UUID deviceId;
     private double latitude;
     private double longitude;
     private LocalDateTime timeCreate;

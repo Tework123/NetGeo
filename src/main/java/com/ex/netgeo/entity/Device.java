@@ -5,6 +5,8 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -16,12 +18,20 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "tracking_device")
-public class TrackingDevice {
+@Table(name = "devices")
+public class Device {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long deviceId;
+    @Column(name = "device_id", nullable = false, updatable = false)
+    private UUID deviceId;
+
+    /**
+     * Точки местоположения, связанные с устройством.
+     */
+    @Builder.Default
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE,
+            orphanRemoval = true, mappedBy = "device")
+    private List<LocationPoint> locationPointList = new ArrayList<>();
 
     /**
      * Название устройства).
@@ -38,19 +48,22 @@ public class TrackingDevice {
     /**
      * Время регистрации устройства.
      */
-    @Column(name = "date_register", nullable = false)
-    private LocalDateTime dateRegister;
+    @Setter(AccessLevel.NONE)
+    @Column(name = "time_create", nullable = false, updatable = false)
+    private LocalDateTime timeCreate;
 
     /**
      * Последнее время, когда устройство передавало координаты.
      */
-    @Column(name = "time_last_seen_at", nullable = true)
+    @Column(name = "time_last_seen_at")
     private LocalDateTime timeLastSeenAt;
 
     @PrePersist
     public void prePersist() {
-        dateRegister = LocalDateTime.now();
-        active = false;
+        if (deviceId == null) {
+            deviceId = UUID.randomUUID();
+        }
+        timeCreate = LocalDateTime.now();
     }
 
     @PreUpdate
