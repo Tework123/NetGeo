@@ -17,3 +17,21 @@ spring:
       #     generate_statistics: true
     liquibase:
       enabled: true
+
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL:
+#        type: TRACE
+#    springframework:
+#      security: DEBUG
+#    root: INFO
+#    com:
+#      example: DEBUG
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n" # Формат вывода в консоль
+#  file:
+#    name: logs/myapp.log
+#    max-size: 10MB
+#    max-history: 30

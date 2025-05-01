@@ -16,7 +16,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "location_points")
+@Table(name = "location_point")
 public class LocationPoint {
 
     @Id

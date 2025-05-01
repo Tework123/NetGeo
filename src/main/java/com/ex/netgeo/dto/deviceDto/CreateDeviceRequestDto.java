@@ -1,8 +1,6 @@
-package com.ex.netgeo.dto;
+package com.ex.netgeo.dto.deviceDto;
 
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 /**
  * DTO для регистрации устройства.
@@ -12,8 +10,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TrackingDeviceSaveRequestDto {
+public class CreateDeviceRequestDto {
     private String name;
-    private double longitude;
-    private LocalDateTime timeCreate;
 }
