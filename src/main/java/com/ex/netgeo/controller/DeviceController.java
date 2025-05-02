@@ -1,7 +1,6 @@
 package com.ex.netgeo.controller;
 
 import com.ex.netgeo.dto.deviceDto.CreateDeviceRequestDto;
-import com.ex.netgeo.dto.DeviceSaveRequestDto;
 import com.ex.netgeo.dto.deviceDto.GetDeviceResponseDto;
 import com.ex.netgeo.dto.deviceDto.UpdateDeviceDto;
 import com.ex.netgeo.service.DeviceService;
@@ -32,22 +31,22 @@ public class DeviceController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/{device_id}")
+    @GetMapping("/{deviceId}")
     public GetDeviceResponseDto getDevice(@PathVariable UUID deviceId) {
         return deviceService.getDeviceById(deviceId);
 
     }
 
-    @PutMapping("/{device_id}")
+    @PutMapping("/{deviceId}")
     public ResponseEntity<Void> updateDevice(@PathVariable UUID deviceId, @RequestBody UpdateDeviceDto dto) {
-//        deviceService.update(deviceId, dto);
+        deviceService.update(deviceId, dto);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{device_id}")
+    @DeleteMapping("/{deviceId}")
     public ResponseEntity<Void> deleteDevice(@PathVariable UUID deviceId) {
-//        deviceService.delete(id);
-        return ResponseEntity.noContent().build();
+        deviceService.delete(deviceId);
+        return ResponseEntity.ok().build();
     }
 
 

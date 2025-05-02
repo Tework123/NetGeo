@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changelog/changeset/01_05_2025_create_db.sql
+  - include:
+      file: db/changelog/changeset/02_05_2025_add_column_create_timestamp.sql

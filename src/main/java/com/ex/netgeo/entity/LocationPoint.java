@@ -43,7 +43,13 @@ public class LocationPoint {
     private double longitude;
 
     /**
-     * Время создания записи о местоположении.
+     * Время создания записи о местоположении на локальном устройстве.
+     */
+    @Column(name = " device_timestamp", nullable = false, updatable = false)
+    private LocalDateTime deviceTimestamp;
+
+    /**
+     * Время сохранении записи о местоположении в бд.
      */
     @Column(name = "time_create", nullable = false, updatable = false)
     private LocalDateTime timeCreate;

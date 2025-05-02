@@ -1,14 +1,18 @@
 package com.ex.netgeo.service;
 
-import com.ex.netgeo.dto.LocationRequestDto;
+import com.ex.netgeo.dto.locationPointDto.CreateLocationRequestDto;
+import com.ex.netgeo.dto.locationPointDto.GetLastLocationPointDto;
 import com.ex.netgeo.entity.Device;
 import com.ex.netgeo.entity.LocationPoint;
+import com.ex.netgeo.mapper.LocationPointMapper;
 import com.ex.netgeo.repository.DeviceRepository;
 import com.ex.netgeo.repository.LocationPointRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 /**
  * Сервис для обработки координатных данных от устройств.
@@ -21,23 +25,30 @@ public class LocationService {
 
     private final LocationPointRepository locationPointRepository;
     private final DeviceRepository deviceRepository;
+    private final LocationPointMapper locationPointMapper;
 
     /**
      * Сохраняет координаты устройства в базу данных.
      *
-     * @param request объект с координатами и временем
+     * @param dto объект с координатами и временем
      */
     @Transactional
-    public void save(LocationRequestDto request) {
-        Device device = deviceRepository.findById(request.getDeviceId())
-                .orElseThrow(() -> new EntityNotFoundException("Device not found with id: " + request.getDeviceId()));
+    public void save(CreateLocationRequestDto dto) {
+        Device device = deviceRepository.findById(dto.getDeviceId())
+                .orElseThrow(() -> new EntityNotFoundException("Device not found with id: " + dto.getDeviceId()));
 
-        LocationPoint point = LocationPoint.builder()
-                .device(device)
-                .latitude(request.getLatitude())
-                .longitude(request.getLongitude())
-                .timeCreate(request.getTimeCreate())
-                .build();
-        locationPointRepository.save(point);
+        LocationPoint locationPoint = locationPointMapper.toEntity(dto, device);
+        locationPointRepository.save(locationPoint);
     }
+
+    public GetLastLocationPointDto getLast(UUID deviceId) {
+        if (!deviceRepository.existsById(deviceId)) {
+            throw new EntityNotFoundException("Device not found with id: " + deviceId);
+        }
+
+        LocationPoint locationPoint = locationPointRepository.findLastByDeviceId(deviceId);
+        return locationPointMapper.toResponseDto(locationPoint);
+
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.ex.netgeo.dto;
+package com.ex.netgeo.dto.locationPointDto;
 
 import lombok.*;
 
@@ -13,9 +13,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LocationRequestDto {
+public class CreateLocationRequestDto {
     private UUID deviceId;
     private double latitude;
     private double longitude;
-    private LocalDateTime timeCreate;
+    private LocalDateTime deviceTimestamp;
 }

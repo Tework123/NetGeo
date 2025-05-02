@@ -9,5 +9,5 @@ import lombok.*;
 @Builder
 public class UpdateDeviceDto {
     private String name;
-    private boolean active;
+    private Boolean active;
 }
